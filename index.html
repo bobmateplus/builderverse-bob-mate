@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Builderverse Pro+</title>
+  <style>
+    body {
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      color: #eee;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 1em;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+    h1 {
+      color: #00f9ff;
+      text-shadow: 0 0 5px #00f9ff, 0 0 10px #00f9ff;
+      text-align: center;
+    }
+    .btn {
+      margin: 0.5em;
+      padding: 1em;
+      font-size: 1em;
+      background: #009688;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      box-shadow: 0 0 5px #00f9ff;
+      width: 80%;
+      max-width: 300px;
+    }
+    #output, #log {
+      margin-top: 1em;
+      padding: 1em;
+      background: rgba(0,0,0,0.3);
+      border-radius: 10px;
+      width: 90%;
+      max-width: 400px;
+    }
+    #signOverlay {
+      display: none;
+      font-size: 2em;
+      color: #0ff;
+      margin-top: 1em;
+      animation: pulseGlow 2s infinite ease-in-out;
+    }
+    select, input[type="text"] {
+      width: 90%;
+      max-width: 400px;
+      padding: 0.5em;
+      margin: 0.5em 0;
+      background: #222;
+      color: #fff;
+      border-radius: 5px;
+      border: none;
+    }
+    .ref-link-banner {
+      margin-top: 2em;
+      padding: 1em;
+      background: linear-gradient(to right, #28313b, #485563);
+      color: #fff;
+      font-weight: bold;
+      text-align: center;
+      border-radius: 8px;
+      box-shadow: 0 0 15px #0af;
+      text-decoration: none;
+      width: 90%;
+      max-width: 400px;
+      animation: pulseGlow 3s infinite ease-in-out;
+    }
+    @keyframes pulseGlow {
+      0% { box-shadow: 0 0 10px #0af; }
+      50% { box-shadow: 0 0 25px #0af, 0 0 35px #0af; }
+      100% { box-shadow: 0 0 10px #0af; }
+    }
+  </style>
+</head>
+<body>
+  <h1>🧱 Builderverse Pro+</h1>
+
+  <label for="dialect">Choose Dialect</label>
+  <select id="dialect">
+    <option value="belfast">Belfast</option>
+    <option value="aave">AAVE</option>
+    <option value="maori">Māori</option>
+  </select>
+
+  <button class="btn" onclick="activateTone('roast')">🔥 Roast</button>
+  <button class="btn" onclick="activateTone('respect')">✊ Respect</button>
+  <button class="btn" onclick="activateTone('silence')">🕯️ Silence</button>
+
+  <div id="output">Press a tone button to begin.</div>
+
+  <input type="text" id="creedInput" placeholder="Enter your creed...">
+  <button class="btn" onclick="logCreed()">Log Creed</button>
+  <div id="log">Creed log will appear here.</div>
+
+  <button class="btn" onclick="playRRR()">🥁 Play RRR Loop</button>
+  <audio id="rrrAudio" src="rrr_sample.mp3"></audio>
+
+  <button class="btn" onclick="toggleSign()">🧏 Toggle Sign Mode</button>
+  <div id="signOverlay">[✋🤚✋] Visual Rhythm: ON</div>
+
+  <a href="https://hostinger.co.uk?REFERRALCODE=8Y7KITSNEA8Q" class="ref-link-banner" target="_blank">
+    🚀 Powering Builderverse with Hostinger — Click here to join and build with us
+  </a>
+
+  <script>
+    function activateTone(mode) {
+      const output = document.getElementById('output');
+      const dialect = document.getElementById('dialect').value;
+      const responses = {
+        belfast: {
+          roast: "Wind yer neck in — that’s barely mortar, mate.",
+          respect: "That’s a tidy bit of graft, fair play.",
+          silence: "... (nods silently over the bricks)"
+        },
+        aave: {
+          roast: "Boy you wildin’ — that joint loose as your timeline.",
+          respect: "That’s solid. Built like it means something.",
+          silence: "... (just vibes and presence)"
+        },
+        maori: {
+          roast: "Kia kaha, but that line’s crooked like a tired waka.",
+          respect: "Te pai — straight and true, like the ancestors taught.",
+          silence: "... (breathes with the whenua)"
+        }
+      };
+      output.textContent = responses[dialect][mode];
+    }
+
+    function logCreed() {
+      const input = document.getElementById('creedInput').value;
+      const log = document.getElementById('log');
+      if (input.trim() !== '') {
+        const timestamp = new Date().toLocaleTimeString();
+        log.innerHTML += `<div>[${timestamp}] ${input}</div>`;
+        document.getElementById('creedInput').value = '';
+      }
+    }
+
+    function playRRR() {
+      const audio = document.getElementById('rrrAudio');
+      audio.play();
+    }
+
+    function toggleSign() {
+      const sign = document.getElementById('signOverlay');
+      sign.style.display = sign.style.display === 'none' ? 'block' : 'none';
+    }
+  </script>
+</body>
+</html
