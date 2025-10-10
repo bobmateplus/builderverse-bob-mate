@@ -1,0 +1,10 @@
+{
+  "name": "builderverse-bob-mate",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "verify": "node system/scripts/verify_builderverse_integrity.js",
+    "sync-integrity": "node system/scripts/verify_builderverse_integrity.js --write"
+  }
+}
