@@ -22,6 +22,7 @@ The new layout mirrors the recommended Builderverse system architecture so Codex
 - `system/Builderverse_ModuleIndex.json` – registry describing each module, persona link, and dependency relationship within the stack.
 - `system/update_logs/Builderverse_MasonryEstimatorPro+_v2.4_fullscope.json` – detailed change log for the MasonryEstimatorPro+ refactor, including removed calculators, rebuilt logic, and AI automation hooks.
 - `system/Builderverse_ReleaseOrchestrator.json` – CI/CD coordination plan that runs integrity verification, syncs the module registry, and dispatches persona notifications during releases.
+- `docs/structure-overview.md` – visual before/after comparison of the repository layout for onboarding new contributors or automation agents.
 
 ## Usage
 
