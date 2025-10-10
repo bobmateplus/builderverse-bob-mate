@@ -15,3 +15,9 @@ This repository houses Builderverse persona assets and configuration files. The 
 3. Reference the MasonryEstimatorPro+ update log when working on masonry estimation tooling or Builderverse AI integrations.
 
 These files are designed to act as both human-readable documentation and AI-ready prompts for Builderverse automation workflows.
+
+## FAQ
+
+### Why does the diff show a red line with `-1`?
+
+The original repository only contained a single placeholder line (`Placeholder content for README.md`) with no newline at the end of the file. When the README was replaced with the fuller documentation above, Git recorded the removal of that placeholder line as a red `-1` entry in the diff. The new content is now tracked normally, and the red line simply reflects the deletion of the outdated placeholder.
