@@ -41,6 +41,16 @@ npm run verify
 
 The script checks that each JSON file exists, validates its integrity hash tag, confirms cross-file links, and raises an error if anything is missing or misaligned.
 
+### Updating hash tags after intentional edits
+
+When you change any of the system JSON files on purpose, regenerate their integrity hash tags with:
+
+```bash
+npm run sync-integrity
+```
+
+This updates the stored SHA-256 values before committing so subsequent verification runs pass cleanly.
+
 ## Deployment
 
 The macOS deployment script delegates to the integrity verifier before continuing with packaging steps.

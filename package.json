@@ -4,6 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "verify": "node system/scripts/verify_builderverse_integrity.js"
+    "verify": "node system/scripts/verify_builderverse_integrity.js",
+    "sync-integrity": "node system/scripts/verify_builderverse_integrity.js --write"
   }
 }

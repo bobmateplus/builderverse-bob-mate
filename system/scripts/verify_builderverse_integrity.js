@@ -5,6 +5,8 @@ import crypto from 'crypto';
 
 const rootDir = process.cwd();
 const systemDir = path.join(rootDir, 'system');
+const args = process.argv.slice(2);
+const writeMode = args.includes('--write') || args.includes('-w');
 
 const files = {
   manifest: {
@@ -50,6 +52,18 @@ function extractHashValue(value) {
   return suffixMatch ? suffixMatch[0].toLowerCase() : null;
 }
 
+function writeIntegrityHash(filePath, json, integrityKey, hash, label) {
+  const clone = { ...(json || {}) };
+  const integrity = typeof clone.integrity === 'object' && clone.integrity !== null
+    ? { ...clone.integrity }
+    : {};
+  integrity[integrityKey] = `SHA256-${hash}`;
+  clone.integrity = integrity;
+  fs.writeFileSync(filePath, `${JSON.stringify(clone, null, 2)}\n`, 'utf8');
+  console.log(`✏️  ${label} integrity hash updated [${hash.slice(0, 12)}]`);
+  return clone;
+}
+
 function verifyIntegrity({ label, path: filePath, integrityKey }) {
   if (!fs.existsSync(filePath)) {
     console.error(`❌  Missing ${label}: ${path.relative(rootDir, filePath)}`);
@@ -75,13 +89,18 @@ function verifyIntegrity({ label, path: filePath, integrityKey }) {
 
   if (matches) {
     console.log(`✅  ${label} integrity confirmed [${canonicalHash.slice(0, 12)}]`);
-  } else {
-    console.warn(`⚠️  ${label} integrity mismatch or missing hash tag`);
-    console.warn(`    stored: ${storedValue ?? 'N/A'}`);
-    console.warn(`    expected: SHA256-${canonicalHash}`);
+    return { ok: true, json };
   }
 
-  return { ok: matches, json };
+  if (writeMode) {
+    const updatedJson = writeIntegrityHash(filePath, json, integrityKey, canonicalHash, label);
+    return { ok: true, json: updatedJson };
+  }
+
+  console.warn(`⚠️  ${label} integrity mismatch or missing hash tag`);
+  console.warn(`    stored: ${storedValue ?? 'N/A'}`);
+  console.warn(`    expected: SHA256-${canonicalHash}`);
+  return { ok: false, json };
 }
 
 function checkManifestLinks(manifestJson) {
@@ -160,6 +179,9 @@ function checkCrossReferences(manifestJson, moduleIndexJson, masonryJson) {
 }
 
 console.log('\n🔍  Running Builderverse Integrity Check...\n');
+if (writeMode) {
+  console.log('✏️  Write mode enabled — integrity hashes will be updated if mismatched.\n');
+}
 
 const manifestResult = verifyIntegrity(files.manifest);
 const moduleIndexResult = verifyIntegrity(files.moduleIndex);
