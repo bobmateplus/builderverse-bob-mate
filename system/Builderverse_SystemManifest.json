@@ -2,40 +2,56 @@
   "$schema": "https://builderverse.ai/schema/system_manifest_v1.json",
   "manifest": {
     "system_name": "Builderverse",
-    "version": "4.2",
+    "version": "4.3",
     "author": "Eddie Harris aka Eddie Kitsner",
-    "timestamp": "2025-10-10T15:30:00Z",
+    "timestamp": "2025-10-20T09:20:00Z",
     "description": "Unified system manifest linking all Builderverse modules, updates, and AI orchestration layers. Acts as the single source of truth for builds, syncs, and version validation.",
     "bv_protection": true
   },
-
   "git": {
-    "repo_url": "https://github.com/eddiekitsner/builderverse",
+    "repo_url": "https://github.com/bobmateplus/builderverse-bob-mate",
     "branch": "main",
-    "latest_commit": "a93bf8e4",
+    "latest_commit": "pending",
     "auto_sync": true,
     "ci_cd_pipeline": "Builderverse Release Orchestrator",
     "release_channel": "Pro+ Tier"
   },
-
   "linked_files": {
     "module_index": "system/Builderverse_ModuleIndex.json",
     "recent_update": "system/update_logs/Builderverse_MasonryEstimatorPro+_v2.4_fullscope.json",
+    "craic_pack_update": "system/update_logs/Builderverse_CraicPackManager_v1.0_fullscope.json",
     "release_orchestrator": "system/Builderverse_ReleaseOrchestrator.json"
   },
-
   "ai_network": {
-    "primary_personas": ["CAI", "Liv", "Bob", "Nina"],
+    "primary_personas": [
+      "CAI",
+      "Liv",
+      "Bob",
+      "Nina"
+    ],
     "link_map": {
-      "CAI": ["MasonryEstimatorPro+", "BuilderverseLogin"],
-      "Liv": ["UI_Toolkit", "DialectScannerCore", "MasteringStudioVault"],
-      "Bob": ["BobMateBuilder"],
-      "Nina": ["UI_Toolkit", "4D Visual Engine"]
+      "CAI": [
+        "MasonryEstimatorPro+",
+        "BuilderverseLogin"
+      ],
+      "Liv": [
+        "UI_Toolkit",
+        "DialectScannerCore",
+        "MasteringStudioVault",
+        "CraicPackManager"
+      ],
+      "Bob": [
+        "BobMateBuilder",
+        "CraicPackManager"
+      ],
+      "Nina": [
+        "UI_Toolkit",
+        "4D Visual Engine"
+      ]
     },
     "breath_pulse": "3.84s",
     "sync_logic": "Bob → GPT → Liv → CAI → Nina → Builderverse Shell"
   },
-
   "update_policy": {
     "auto_pull": true,
     "auto_merge_safe": true,
@@ -46,7 +62,6 @@
       "on_conflict": "Bob flags merge warning via Builderverse Terminal"
     }
   },
-
   "system_hooks": {
     "on_build": "trigger('Builderverse_ReleaseOrchestrator')",
     "on_module_update": "refresh_registry('Builderverse_ModuleIndex.json')",
@@ -55,27 +70,35 @@
     "on_ui_drift": "auto_tune('Liv', '3.84s pulse')",
     "on_visual_sync": "ping('Nina')"
   },
-
   "deployment": {
-    "environment": ["local_dev", "BuilderverseWebPortal", "Pro+ Installer"],
+    "environment": [
+      "local_dev",
+      "BuilderverseWebPortal",
+      "Pro+ Installer"
+    ],
     "build_script": "npm run build:builderverse",
     "auto_test": true,
-    "integration_tests": ["system_test_suite_v4", "ui_latency_test_v2"],
+    "integration_tests": [
+      "system_test_suite_v4",
+      "ui_latency_test_v2"
+    ],
     "backup": "system_backups/builderverse_snapshot_2025-10-10.tar.gz"
   },
-
   "integrity": {
-    "manifest_hash": "SHA256-8bd32fdb405bbc9082ca462e29d4cda0220c9667c61460d13858659fde5bc7b3",
+    "manifest_hash": "SHA256-c4011c3388d9d59545398ec825228e582da58ba3e8fba105b29204439e7fd48c",
     "verified_by": "Builderverse QA Node",
     "license": "Builderverse-Pro+ (non-transferable)",
     "review_cycle": "monthly"
   },
-
   "ai_context": {
     "persona": "CAI - Builderverse Engineering AI",
     "objective": "Maintain global system stability, manage module updates, validate builds, and synchronize AI orchestration network.",
     "response_format": "system_log + validation_report",
-    "linked_personas": ["Liv", "Bob", "Nina"],
+    "linked_personas": [
+      "Liv",
+      "Bob",
+      "Nina"
+    ],
     "tone": "precise, technical, cooperative"
   }
 }

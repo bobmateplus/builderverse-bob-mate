@@ -23,6 +23,11 @@ const files = {
     label: 'Masonry Update Log',
     path: path.join(systemDir, 'update_logs', 'Builderverse_MasonryEstimatorPro+_v2.4_fullscope.json'),
     integrityKey: 'hash'
+  },
+  craicUpdate: {
+    label: 'Craic Pack Update Log',
+    path: path.join(systemDir, 'update_logs', 'Builderverse_CraicPackManager_v1.0_fullscope.json'),
+    integrityKey: 'hash'
   }
 };
 
@@ -65,9 +70,10 @@ function writeIntegrityHash(filePath, json, integrityKey, hash, label) {
 }
 
 function verifyIntegrity({ label, path: filePath, integrityKey }) {
+  const relativePath = path.relative(rootDir, filePath);
   if (!fs.existsSync(filePath)) {
-    console.error(`❌  Missing ${label}: ${path.relative(rootDir, filePath)}`);
-    return { ok: false };
+    console.error(`❌  Missing ${label}: ${relativePath}`);
+    return { ok: false, filePath, relativePath };
   }
 
   let json;
@@ -75,7 +81,7 @@ function verifyIntegrity({ label, path: filePath, integrityKey }) {
     json = readJson(filePath);
   } catch (error) {
     console.error(`❌  Failed to parse ${label}: ${error.message}`);
-    return { ok: false };
+    return { ok: false, filePath, relativePath };
   }
 
   const storedValue = json.integrity?.[integrityKey]
@@ -89,18 +95,18 @@ function verifyIntegrity({ label, path: filePath, integrityKey }) {
 
   if (matches) {
     console.log(`✅  ${label} integrity confirmed [${canonicalHash.slice(0, 12)}]`);
-    return { ok: true, json };
+    return { ok: true, json, filePath, relativePath };
   }
 
   if (writeMode) {
     const updatedJson = writeIntegrityHash(filePath, json, integrityKey, canonicalHash, label);
-    return { ok: true, json: updatedJson };
+    return { ok: true, json: updatedJson, filePath, relativePath };
   }
 
   console.warn(`⚠️  ${label} integrity mismatch or missing hash tag`);
   console.warn(`    stored: ${storedValue ?? 'N/A'}`);
   console.warn(`    expected: SHA256-${canonicalHash}`);
-  return { ok: false, json };
+  return { ok: false, json, filePath, relativePath };
 }
 
 function checkManifestLinks(manifestJson) {
@@ -152,28 +158,56 @@ function checkModuleIndexLinks(moduleIndexJson) {
   return ok;
 }
 
-function checkCrossReferences(manifestJson, moduleIndexJson, masonryJson) {
+function checkCrossReferences(manifestResult, moduleIndexResult, updateResults) {
+  const manifestJson = manifestResult.json;
+  const moduleIndexJson = moduleIndexResult.json;
   let ok = true;
 
-  if (manifestJson && moduleIndexJson) {
-    const expectedModuleIndexPath = 'system/Builderverse_ModuleIndex.json';
+  if (manifestJson && moduleIndexResult.relativePath) {
+    const expectedModuleIndexPath = moduleIndexResult.relativePath;
     if (manifestJson.linked_files?.module_index !== expectedModuleIndexPath) {
-      console.warn('⚠️  Manifest linked module index path differs from expected.');
+      console.warn(`⚠️  Manifest linked module index path differs from expected (${manifestJson.linked_files?.module_index} vs ${expectedModuleIndexPath}).`);
       ok = false;
+    } else {
+      console.log(`✅  Manifest links module index at ${expectedModuleIndexPath}.`);
     }
   }
 
-  if (moduleIndexJson && masonryJson) {
-    const moduleEntry = (moduleIndexJson.core_modules || []).find(
-      (mod) => mod.name === masonryJson.system?.subsystem
-    );
+  const modules = Array.isArray(moduleIndexJson?.core_modules) ? moduleIndexJson.core_modules : [];
+  const manifestLinks = manifestJson?.linked_files || {};
+
+  updateResults.forEach((updateResult) => {
+    if (!updateResult.json) {
+      ok = false;
+      return;
+    }
+
+    const subsystem = updateResult.json.system?.subsystem;
+    const relativePath = updateResult.relativePath;
+    const moduleEntry = modules.find((mod) => mod.name === subsystem);
+
     if (!moduleEntry) {
-      console.error(`❌  Module index missing entry for subsystem '${masonryJson.system?.subsystem}'.`);
+      console.error(`❌  Module index missing entry for subsystem '${subsystem}'.`);
       ok = false;
     } else {
-      console.log(`✅  Module index includes '${masonryJson.system?.subsystem}'.`);
+      console.log(`✅  Module index includes '${subsystem}'.`);
+      if (moduleEntry.linked_update_file) {
+        const expectedFileName = path.basename(relativePath);
+        if (moduleEntry.linked_update_file !== expectedFileName) {
+          console.warn(`⚠️  Module '${subsystem}' linked update file differs (${moduleEntry.linked_update_file} vs ${expectedFileName}).`);
+          ok = false;
+        }
+      }
     }
-  }
+
+    const manifestHasLink = Object.values(manifestLinks).includes(relativePath);
+    if (!manifestHasLink) {
+      console.warn(`⚠️  Manifest missing direct link to update log for '${subsystem}' (${relativePath}).`);
+      ok = false;
+    } else {
+      console.log(`✅  Manifest links update log for '${subsystem}'.`);
+    }
+  });
 
   return ok;
 }
@@ -186,15 +220,17 @@ if (writeMode) {
 const manifestResult = verifyIntegrity(files.manifest);
 const moduleIndexResult = verifyIntegrity(files.moduleIndex);
 const masonryResult = verifyIntegrity(files.masonryUpdate);
+const craicResult = verifyIntegrity(files.craicUpdate);
 
 const manifestOk = checkManifestLinks(manifestResult.json);
 const moduleLinksOk = checkModuleIndexLinks(moduleIndexResult.json);
-const crossOk = checkCrossReferences(manifestResult.json, moduleIndexResult.json, masonryResult.json);
+const crossOk = checkCrossReferences(manifestResult, moduleIndexResult, [masonryResult, craicResult]);
 
 const success = [
   manifestResult.ok,
   moduleIndexResult.ok,
   masonryResult.ok,
+  craicResult.ok,
   manifestOk,
   moduleLinksOk,
   crossOk

@@ -37,7 +37,8 @@ builderverse-bob-mate/
 ├── deploy/
 │   └── MacDeploy.sh
 ├── docs/
-│   └── structure-overview.md
+│   ├── structure-overview.md
+│   └── craic-pack-manager.md
 ├── logs/
 │   └── LegacyLog.json
 ├── package.json
@@ -55,7 +56,8 @@ builderverse-bob-mate/
     ├── scripts/
     │   └── verify_builderverse_integrity.js
     └── update_logs/
-        └── Builderverse_MasonryEstimatorPro+_v2.4_fullscope.json
+        ├── Builderverse_MasonryEstimatorPro+_v2.4_fullscope.json
+        └── Builderverse_CraicPackManager_v1.0_fullscope.json
 ```
 
 This hierarchy separates responsibilities:
@@ -66,7 +68,7 @@ This hierarchy separates responsibilities:
 - **docs/** provides quick references like this structure comparison for future contributors.
 - **logs/** tracks legacy Builderverse snapshots.
 - **src/** houses HTML mock-ups, AI logic, and persona content.
-- **system/** bundles the Builderverse system layer: manifest, module index, update logs, and integrity tooling.
+- **system/** bundles the Builderverse system layer: manifest, module index, update logs (masonry + craic packs), and integrity tooling.
 
 ## Integrity Workflow Cheatsheet
 

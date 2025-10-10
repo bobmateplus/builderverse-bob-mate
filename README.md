@@ -21,8 +21,10 @@ The new layout mirrors the recommended Builderverse system architecture so Codex
 - `system/Builderverse_SystemManifest.json` – top-level manifest linking Git metadata, AI personas, deployment policy, and integrity tracking for the Builderverse ecosystem.
 - `system/Builderverse_ModuleIndex.json` – registry describing each module, persona link, and dependency relationship within the stack.
 - `system/update_logs/Builderverse_MasonryEstimatorPro+_v2.4_fullscope.json` – detailed change log for the MasonryEstimatorPro+ refactor, including removed calculators, rebuilt logic, and AI automation hooks.
+- `system/update_logs/Builderverse_CraicPackManager_v1.0_fullscope.json` – launch plan for the Craic Pack Manager, outlining dialect pack governance, persona integration, and staged deployment steps.
 - `system/Builderverse_ReleaseOrchestrator.json` – CI/CD coordination plan that runs integrity verification, syncs the module registry, and dispatches persona notifications during releases.
 - `docs/structure-overview.md` – visual before/after comparison of the repository layout for onboarding new contributors or automation agents.
+- `docs/craic-pack-manager.md` – planning notes, feature scope, and persona routing for the Craic Pack Manager module.
 
 ## Usage
 
@@ -31,6 +33,10 @@ The new layout mirrors the recommended Builderverse system architecture so Codex
 3. Reference the MasonryEstimatorPro+ update log when working on masonry estimation tooling or Builderverse AI integrations.
 
 These files are designed to act as both human-readable documentation and AI-ready prompts for Builderverse automation workflows.
+
+## Craic Pack Manager Module
+
+The Craic Pack Manager expands the system layer beyond construction tooling by governing dialect and banter packs consumed by BobMateBuilder. Its update log captures the planning state for v1.0, while the module index and system manifest now route the module through Bob and Liv personas. Use the Craic Pack documentation to coordinate future code drops, dialect pack submissions, and persona QA gates.
 
 ## Integrity Verification
 

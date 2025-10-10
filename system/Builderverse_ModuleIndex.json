@@ -8,7 +8,6 @@
     "description": "Master index of all Builderverse modules, subsystems, and dependencies. Used to verify module versions, update lineage, and AI integration routes across the Builderverse ecosystem.",
     "bv_protection": true
   },
-
   "core_modules": [
     {
       "id": "BV-M01",
@@ -16,12 +15,20 @@
       "type": "construction_tool",
       "version": "2.4",
       "status": "live",
-      "dependencies": ["MaterialEstimator", "UI_Toolkit"],
+      "dependencies": [
+        "MaterialEstimator",
+        "UI_Toolkit"
+      ],
       "last_update": "2025-10-10T14:40:00Z",
       "linked_update_file": "Builderverse_MasonryEstimatorPro+_v2.4_fullscope.json",
       "git_ref": "main@a93bf8e4",
       "ai_persona": "CAI",
-      "tags": ["masonry", "estimation", "refactor", "performance"]
+      "tags": [
+        "masonry",
+        "estimation",
+        "refactor",
+        "performance"
+      ]
     },
     {
       "id": "BV-M02",
@@ -29,7 +36,9 @@
       "type": "construction_submodule",
       "version": "1.7",
       "status": "linked",
-      "dependencies": ["SupplierCostAPI"],
+      "dependencies": [
+        "SupplierCostAPI"
+      ],
       "linked_to": "MasonryEstimatorPro+",
       "ai_persona": "CAI"
     },
@@ -49,7 +58,10 @@
       "version": "1.0",
       "status": "live",
       "description": "Dialect mapping engine for Builderverse — authentic slang, tone, and persona validation for UK/Irish builder dialect packs.",
-      "linked_files": ["BelfastPack_v1.json", "GlobalDialectPack.json"],
+      "linked_files": [
+        "BelfastPack_v1.json",
+        "GlobalDialectPack.json"
+      ],
       "ai_persona": "Liv"
     },
     {
@@ -59,7 +71,10 @@
       "version": "0.7",
       "status": "live",
       "description": "Builderverse AI persona providing site banter, builder logic, and conversational scaffolding. Interfaces directly with Liv and CAI.",
-      "linked_personas": ["Liv", "CAI"],
+      "linked_personas": [
+        "Liv",
+        "CAI"
+      ],
       "ai_persona": "Bob"
     },
     {
@@ -78,7 +93,9 @@
       "version": "0.8",
       "status": "active",
       "description": "Handles user authentication, auto-login, and Builderverse Pro+ tier session management.",
-      "linked_files": ["builderverse_app_login_status_auto.json"],
+      "linked_files": [
+        "builderverse_app_login_status_auto.json"
+      ],
       "ai_persona": "CAI"
     },
     {
@@ -88,51 +105,100 @@
       "version": "1.0",
       "status": "live",
       "description": "Automated system for release management, AI validation, and Builderverse-wide update propagation.",
-      "linked_files": ["Builderverse_ReleaseOrchestrator.json"],
+      "linked_files": [
+        "Builderverse_ReleaseOrchestrator.json"
+      ],
       "ai_persona": "Liv"
+    },
+    {
+      "id": "BV-M09",
+      "name": "CraicPackManager",
+      "type": "persona_tool",
+      "version": "1.0",
+      "status": "planning",
+      "description": "Governed repository of dialect and banter packs feeding BobMateBuilder with culturally authentic craic.",
+      "dependencies": [
+        "DialectScannerCore",
+        "BobMateBuilder",
+        "UI_Toolkit"
+      ],
+      "linked_update_file": "Builderverse_CraicPackManager_v1.0_fullscope.json",
+      "ai_persona": "Bob",
+      "tags": [
+        "dialect",
+        "banter",
+        "persona",
+        "craic"
+      ]
     }
   ],
-
   "ai_personas": [
     {
       "name": "CAI",
       "role": "Engineering & System Optimization AI",
       "version": "Core-4D",
-      "focus": ["code generation", "system validation", "construction logic"],
-      "connected_modules": ["MasonryEstimatorPro+", "BuilderverseLogin"]
+      "focus": [
+        "code generation",
+        "system validation",
+        "construction logic"
+      ],
+      "connected_modules": [
+        "MasonryEstimatorPro+",
+        "BuilderverseLogin"
+      ]
     },
     {
       "name": "Liv",
       "role": "Cultural Memory & UI Design AI",
       "version": "3.8",
-      "focus": ["language tone", "UI styling", "cultural data validation"],
-      "connected_modules": ["UI_Toolkit", "DialectScannerCore", "MasteringStudioVault"]
+      "focus": [
+        "language tone",
+        "UI styling",
+        "cultural data validation"
+      ],
+      "connected_modules": [
+        "UI_Toolkit",
+        "DialectScannerCore",
+        "MasteringStudioVault"
+      ]
     },
     {
       "name": "Bob",
       "role": "Builder Persona & Banter Interface",
       "version": "2.0",
-      "focus": ["banter", "speech tone", "real-site context"],
-      "connected_modules": ["BobMateBuilder"]
+      "focus": [
+        "banter",
+        "speech tone",
+        "real-site context"
+      ],
+      "connected_modules": [
+        "BobMateBuilder",
+        "CraicPackManager"
+      ]
     },
     {
       "name": "Nina",
       "role": "AI Visual & Sync Assistant",
       "version": "1.2",
-      "focus": ["visual sync", "animation", "data rhythm mapping"],
-      "connected_modules": ["UI_Toolkit", "4D Visual Engine"]
+      "focus": [
+        "visual sync",
+        "animation",
+        "data rhythm mapping"
+      ],
+      "connected_modules": [
+        "UI_Toolkit",
+        "4D Visual Engine"
+      ]
     }
   ],
-
   "system_hooks": {
     "on_module_update": "trigger('Builderverse_ReleaseOrchestrator')",
     "on_new_commit": "validate_integrity_hash()",
     "on_ai_error": "route_to_persona('CAI')",
     "on_user_feedback": "log_to('Builderverse_CommunityFeedbackLoop')"
   },
-
   "integrity": {
-    "registry_hash": "SHA256-b1aaf60679010fd29141f8b8ba235b6acb15446ba11f6673a176d7f80d9a0605",
+    "registry_hash": "SHA256-9f6367763da8440280c0d1c3f65975f4986719d1f401222207fc5a1b3131a940",
     "verified_by": "Builderverse QA Node",
     "review_cycle": "monthly",
     "license": "Builderverse-Pro+ (non-transferable)"
