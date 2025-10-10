@@ -41,6 +41,16 @@ npm run verify
 
 The script checks that each JSON file exists, validates its integrity hash tag, confirms cross-file links, and raises an error if anything is missing or misaligned.
 
+## Deployment
+
+The macOS deployment script delegates to the integrity verifier before continuing with packaging steps.
+
+```bash
+./deploy/MacDeploy.sh
+```
+
+If the verification fails, the script exits early so you can update the manifest, registry, or update log before distributing a new Builderverse build.
+
 ## FAQ
 
 ### Why does the diff show a red line with `-1`?
