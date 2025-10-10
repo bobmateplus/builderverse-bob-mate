@@ -7,6 +7,7 @@ This repository houses Builderverse persona assets and configuration files. The 
 - `system/Builderverse_SystemManifest.json` – top-level manifest linking Git metadata, AI personas, deployment policy, and integrity tracking for the Builderverse ecosystem.
 - `system/Builderverse_ModuleIndex.json` – registry describing each module, persona link, and dependency relationship within the stack.
 - `system/update_logs/Builderverse_MasonryEstimatorPro+_v2.4_fullscope.json` – detailed change log for the MasonryEstimatorPro+ refactor, including removed calculators, rebuilt logic, and AI automation hooks.
+- `system/Builderverse_ReleaseOrchestrator.json` – CI/CD coordination plan that runs integrity verification, syncs the module registry, and dispatches persona notifications during releases.
 
 ## Usage
 
@@ -15,6 +16,16 @@ This repository houses Builderverse persona assets and configuration files. The 
 3. Reference the MasonryEstimatorPro+ update log when working on masonry estimation tooling or Builderverse AI integrations.
 
 These files are designed to act as both human-readable documentation and AI-ready prompts for Builderverse automation workflows.
+
+## Integrity Verification
+
+Run the Builderverse integrity verifier before releasing updates to confirm the manifest, module index, and masonry update log are in sync.
+
+```bash
+npm run verify
+```
+
+The script checks that each JSON file exists, validates its integrity hash tag, confirms cross-file links, and raises an error if anything is missing or misaligned.
 
 ## FAQ
 

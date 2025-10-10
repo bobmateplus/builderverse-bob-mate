@@ -65,7 +65,7 @@
   },
 
   "integrity": {
-    "manifest_hash": "SHA256-bv-systemmanifest-20251010-1e4b72c58a9f",
+    "manifest_hash": "SHA256-8bd32fdb405bbc9082ca462e29d4cda0220c9667c61460d13858659fde5bc7b3",
     "verified_by": "Builderverse QA Node",
     "license": "Builderverse-Pro+ (non-transferable)",
     "review_cycle": "monthly"

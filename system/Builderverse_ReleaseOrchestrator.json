@@ -1,0 +1,43 @@
+{
+  "$schema": "https://builderverse.ai/schema/release_orchestrator_v1.json",
+  "orchestrator": {
+    "name": "Builderverse Release Orchestrator",
+    "version": "1.0",
+    "maintainer": "Eddie Harris aka Eddie Kitsner",
+    "description": "Coordinates Builderverse CI/CD runs, verifies integrity manifests, and manages persona notifications during releases.",
+    "bv_protection": true
+  },
+  "pipelines": [
+    {
+      "id": "BV-PIPE-01",
+      "name": "System Manifest Verification",
+      "steps": [
+        "checkout_repo",
+        "npm_run_verify",
+        "archive_snapshot",
+        "dispatch_release_notifications"
+      ],
+      "status": "active"
+    },
+    {
+      "id": "BV-PIPE-02",
+      "name": "Module Registry Sync",
+      "steps": [
+        "pull_module_updates",
+        "validate_dependencies",
+        "update_registry_index",
+        "publish_release_notes"
+      ],
+      "status": "active"
+    }
+  ],
+  "notifications": {
+    "on_success": ["Liv", "CAI"],
+    "on_failure": ["CAI", "Bob"],
+    "channels": ["builderverse_terminal", "pro_plus_dashboard"]
+  },
+  "integrity": {
+    "hash": "SHA256-ad37f731131adee527e68f7a9d2a616c00cce50f3ed3c1e14fde4243ae124d26",
+    "verified_by": "Builderverse QA Node"
+  }
+}

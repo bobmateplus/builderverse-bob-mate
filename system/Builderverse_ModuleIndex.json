@@ -132,7 +132,7 @@
   },
 
   "integrity": {
-    "registry_hash": "SHA256-bv-registry-20251010-49ac27d3a7",
+    "registry_hash": "SHA256-b1aaf60679010fd29141f8b8ba235b6acb15446ba11f6673a176d7f80d9a0605",
     "verified_by": "Builderverse QA Node",
     "review_cycle": "monthly",
     "license": "Builderverse-Pro+ (non-transferable)"
