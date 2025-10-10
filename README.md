@@ -1,6 +1,20 @@
 # Builderverse Bob Mate
 
-This repository houses Builderverse persona assets and configuration files. The latest update introduces a structured system manifest for coordinating module updates across the Builderverse stack.
+This repository houses Builderverse persona assets and configuration files. The latest update introduces a structured system manifest for coordinating module updates across the Builderverse stack and reorganises supporting files into a clearer directory layout.
+
+## Repository Structure
+
+```
+builderverse-bob-mate/
+├── assets/                # Visual and media artefacts (e.g. Bob avatar render)
+├── config/                # Runtime configuration and protection stacks
+├── deploy/                # Deployment and packaging scripts
+├── logs/                  # Historical Builderverse log snapshots
+├── src/                   # Persona source files, HTML mock-ups, and AI logic
+└── system/                # Manifests, registries, and integrity tooling
+```
+
+The new layout mirrors the recommended Builderverse system architecture so Codex, CAI, and CI workflows can resolve files predictably.
 
 ## Key System Files
 
